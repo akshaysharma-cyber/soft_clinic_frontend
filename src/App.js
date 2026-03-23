@@ -7,6 +7,7 @@ import PatientSuccess from "./PatientSuccess";
 import PatientForm from "./PatientForm";
 import TestEntry from "./TestEntry";
 import ManageTest from "./ManageTest";
+import Settings  from "./Settings";
 
 
 
@@ -22,6 +23,7 @@ export default function App() {
       <Route path="/patient" element={<PatientForm />} />
       <Route path="/test-entry" element={<TestEntry />} />
       <Route path="/manage-test" element={<ManageTest />} />
+      <Route path="/settings" element={<Settings />} />
     </Routes>
   );
 }

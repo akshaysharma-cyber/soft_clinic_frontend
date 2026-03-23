@@ -141,11 +141,30 @@ export default function PatientForm() {
               label="Mobile Number"
               name="mobile"
               value={form.mobile}
-              onChange={handleChange}
-              error={!!errors.mobile}
-              helperText={errors.mobile}
+              onChange={(e) => {
+                const value = e.target.value;
+                if (value.length <= 10) {
+                  setForm({ ...form, mobile: value });
+                }
+              }}
+              error={form.mobile.length > 10}
+              helperText={
+                form.mobile.length > 10 ? "Mobile number cannot exceed 10 digits" : ""
+              }
             />
           </Grid>
+
+          {/*Data*/}
+          <Grid item xs={12}>
+          <TextField
+            fullWidth
+            type="date"
+            label="Date"
+            name="date"
+            InputLabelProps={{ shrink: true }}
+            onChange={handleChange}
+          />
+        </Grid>
 
           {/* Doctor */}
           <Grid item xs={12}>

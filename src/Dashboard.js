@@ -47,7 +47,7 @@ export default function Dashboard() {
         <MenuItem
           icon={<SettingsIcon />}
           label="Settings"
-          onClick={() => navigate("/manage-test")}
+          onClick={() => navigate("/settings")}
         />
       </Box>
 
@@ -116,7 +116,7 @@ export default function Dashboard() {
         />
 
         <FooterItem icon={<DescriptionIcon />} label="Reports" />
-        <FooterItem icon={<SettingsIcon />} label="Settings" onClick={() => navigate("/manage-test")} />
+        <FooterItem icon={<SettingsIcon />} label="Settings" onClick={() => navigate("/settings")} />
       </Box>
     </Box>
   );
