@@ -77,6 +77,16 @@ export default function PatientForm() {
           boxShadow: "0 10px 30px rgba(0,0,0,0.1)"
         }}
       >
+        {/* 🔥 HEADER WITH LOGO */}
+        <Box textAlign="center" mb={3}>
+          <Box
+            component="img"
+            src="/logo.png"
+            alt="logo"
+            sx={{ height: 55, mb: 1 }}
+          />
+        </Box>
+
         {/* 🔹 TITLE */}
         <Typography
           variant="h5"
