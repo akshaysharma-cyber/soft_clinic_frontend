@@ -1,92 +1,87 @@
-import { Box, Typography, Card, Button } from "@mui/material";
+import { useState } from "react";
+import {
+  Menu,
+  MenuItem,
+  IconButton
+} from "@mui/material";
+import SettingsIcon from "@mui/icons-material/Settings";
 import { useNavigate } from "react-router-dom";
 
 export default function Settings() {
   const navigate = useNavigate();
 
+  const [anchorEl, setAnchorEl] = useState(null);
+  const open = Boolean(anchorEl);
+
+  const handleClick = (event) => {
+    setAnchorEl(event.currentTarget);
+  };
+
+  const handleClose = () => {
+    setAnchorEl(null);
+  };
+
   return (
-    <Box
-      sx={{
-        minHeight: "100vh",
-        bgcolor: "#f4f7fb",
-        display: "flex",
-        alignItems: "center",
-        justifyContent: "center",
-      }}
-    >
-      {/* Center Container */}
-      <Box
-        sx={{
-          width: "100%",
-          maxWidth: 400,
-          p: 3,
+    <>
+      {/* ⚙️ SETTINGS ICON */}
+      <IconButton onClick={handleClick}>
+        <SettingsIcon />
+      </IconButton>
+
+      {/* 🔽 POPUP MENU */}
+      <Menu
+        anchorEl={anchorEl}
+        open={open}
+        onClose={handleClose}
+        PaperProps={{
+          sx: {
+            borderRadius: 2,
+            boxShadow: "0 4px 20px rgba(0,0,0,0.1)",
+            minWidth: 180
+          }
         }}
       >
-        <Typography
-          variant="h5"
-          mb={3}
-          textAlign="center"
-          fontWeight="600"
-        >
-          Settings
-        </Typography>
-
-        {/* Options Card */}
-        <Card
-          sx={{
-            p: 2,
-            mb: 2,
-            borderRadius: 3,
-            boxShadow: 3,
-            cursor: "pointer",
-            "&:hover": { bgcolor: "#f0f4ff" },
+        {/* Manage Test */}
+        <MenuItem
+          onClick={() => {
+            navigate("/manage-test");
+            handleClose();
           }}
-          onClick={() => navigate("/manage-test")}
         >
           Manage Test
-        </Card>
+        </MenuItem>
 
-        <Card
-          sx={{
-            p: 2,
-            mb: 2,
-            borderRadius: 3,
-            boxShadow: 3,
-            "&:hover": { bgcolor: "#f9fafc" },
+        {/* Language */}
+        <MenuItem
+          onClick={() => {
+            alert("Language clicked");
+            handleClose();
           }}
         >
           Language
-        </Card>
+        </MenuItem>
 
-        <Card
-          sx={{
-            p: 2,
-            mb: 3,
-            borderRadius: 3,
-            boxShadow: 3,
-            "&:hover": { bgcolor: "#f9fafc" },
+        {/* Other */}
+        <MenuItem
+          onClick={() => {
+            alert("Other clicked");
+            handleClose();
           }}
         >
           Other
-        </Card>
+        </MenuItem>
 
-        {/* Sign Out Button */}
-        <Button
-          variant="contained"
-          color="error"
-          fullWidth
-          sx={{
-            py: 1.5,
-            borderRadius: 3,
-            textTransform: "none",
-            fontWeight: "bold",
-            boxShadow: 2,
+        {/* Divider style effect */}
+        <MenuItem
+          sx={{ color: "red" }}
+          onClick={() => {
+            navigate("/");
+            handleClose();
           }}
-          onClick={() => navigate("/")}
         >
           Sign Out
-        </Button>
-      </Box>
-    </Box>
+        </MenuItem>
+      </Menu>
+    </>
   );
 }

@@ -7,11 +7,12 @@ import {
 } from "@mui/material";
 import { useNavigate, useLocation } from "react-router-dom";
 import logo from "./assets/logo.png";
-
+import { Menu, MenuItem as MuiMenuItem } from "@mui/material";
 import DashboardIcon from "@mui/icons-material/Dashboard";
 import PeopleIcon from "@mui/icons-material/People";
 import DescriptionIcon from "@mui/icons-material/Description";
 import SettingsIcon from "@mui/icons-material/Settings";
+import { useState } from "react";
 
 export default function Dashboard() {
   const navigate = useNavigate();
@@ -19,10 +20,53 @@ export default function Dashboard() {
   const labName = localStorage.getItem("labName");
   const labLogo = localStorage.getItem("labLogo");
 
+  const [anchorEl, setAnchorEl] = useState(null);
+  const open = Boolean(anchorEl);
+
+  const handleClick = (event) => {
+    console.log("clicked", event);
+    setAnchorEl(event.currentTarget);
+  };
+
+  const handleClose = () => {
+    setAnchorEl(null);
+  };
+
   const isActive = (path) => location.pathname === path;
+
 
   return (
     <Box sx={{ display: "flex", height: "100vh", bgcolor: "#f4f7fb" }}>
+
+      {/* 🔥 SETTINGS POPUP MENU */}
+        <Menu
+          anchorEl={anchorEl}
+          open={Boolean(anchorEl)}
+          onClose={handleClose}
+        >
+          <MuiMenuItem
+            onClick={() => {
+              navigate("/manage-test");
+              handleClose();
+            }}
+          >
+            Manage Test
+          </MuiMenuItem>
+
+          <MuiMenuItem onClick={handleClose}>
+            Language
+          </MuiMenuItem>
+
+          <MuiMenuItem
+            onClick={() => {
+              navigate("/");
+              handleClose();
+            }}
+            sx={{ color: "red" }}
+          >
+            Sign Out
+          </MuiMenuItem>
+        </Menu>
 
       {/* 🔹 SIDEBAR */}
       <Box sx={{ width: 220, bgcolor: "#eef3f9", p: 2 }}>
@@ -52,7 +96,7 @@ export default function Dashboard() {
         <MenuItem
           icon={<SettingsIcon />}
           label="Settings"
-          onClick={() => navigate("/settings")}
+          onClick={handleClick}
         />
       </Box>
 
@@ -113,7 +157,11 @@ export default function Dashboard() {
         />
 
         <FooterItem icon={<DescriptionIcon />} label="Reports" />
-        <FooterItem icon={<SettingsIcon />} label="Settings" onClick={() => navigate("/settings")} />
+        <FooterItem
+        icon={<SettingsIcon />}
+        label="Settings"
+        onClick={handleClick}
+      />
       </Box>
     </Box>
   );
