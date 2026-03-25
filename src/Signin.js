@@ -68,7 +68,7 @@ export default function Signin() {
 
         <Button
           fullWidth
-          onClick={() => navigate("/dashboard")}
+          onClick={() => navigate("/lab-setup")}
           sx={{
             mt: 2,
             py: 1.5,

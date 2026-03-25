@@ -16,6 +16,8 @@ import SettingsIcon from "@mui/icons-material/Settings";
 export default function Dashboard() {
   const navigate = useNavigate();
   const location = useLocation();
+  const labName = localStorage.getItem("labName");
+  const labLogo = localStorage.getItem("labLogo");
 
   const isActive = (path) => location.pathname === path;
 
@@ -25,7 +27,10 @@ export default function Dashboard() {
       {/* 🔹 SIDEBAR */}
       <Box sx={{ width: 220, bgcolor: "#eef3f9", p: 2 }}>
         <Box sx={{ display: "flex", alignItems: "center", mb: 3 }}>
-          <img src={logo} style={{ width: 40, marginRight: 10 }} />
+          <img
+            src={labLogo || logo}
+            style={{ width: 40, marginRight: 10, borderRadius: 5 }}
+          />
           <Typography fontWeight="bold">LabZen</Typography>
         </Box>
 
@@ -56,7 +61,9 @@ export default function Dashboard() {
 
         {/* TOP NAV */}
         <Box sx={{ display: "flex", justifyContent: "space-between", mb: 3 }}>
-          <Typography variant="h6">Home Dashboard</Typography>
+          <Typography variant="h6">
+            {labName ? `${labName} Dashboard` : "Home Dashboard"}
+          </Typography>
 
           <Box sx={{ display: "flex", gap: 3 }}>
             <NavItem label="Dashboard" onClick={() => navigate("/dashboard")} />
@@ -75,17 +82,7 @@ export default function Dashboard() {
         </Grid>
 
         {/* Upload */}
-        <Box
-          sx={{
-            mt: 4,
-            p: 4,
-            textAlign: "center",
-            borderRadius: 3,
-            border: "2px dashed #cfd8dc"
-          }}
-        >
-          Upload Logo
-        </Box>
+        
       </Box>
 
       {/* 🔹 FOOTER */}
