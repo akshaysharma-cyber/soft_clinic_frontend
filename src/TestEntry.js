@@ -237,14 +237,27 @@ export default function TestEntry() {
 
           <Grid container spacing={2} mt={2}>
             {[
-              "bsf","bspp","esr","sgot","sgpt","urea","creatinine",
-              "uricAcid","calcium","crpQual","crpQuant","raFactor",
-              "cholesterol","t3","t4","tsh"
-            ].map((field) => (
+              { label: "B Sugar F", name: "bsf" },
+              { label: "B Sugar PP", name: "bspp" },
+              { label: "ESR", name: "esr" },
+              { label: "SGOT", name: "sgot" },
+              { label: "SGPT", name: "sgpt" },
+              { label: "Urea", name: "urea" },
+              { label: "Creatinine", name: "creatinine" },
+              { label: "Uric Acid", name: "uricAcid" },
+              { label: "Calcium", name: "calcium" },
+              { label: "CRP (Qualitative)", name: "crpQual" },
+              { label: "CRP Quantitative", name: "crpQuant" },
+              { label: "RA Factor", name: "raFactor" },
+              { label: "Cholesterol", name: "cholesterol" },
+              { label: "T3", name: "t3" },
+              { label: "T4", name: "t4" },
+              { label: "TSH", name: "tsh" }
+            ].map((f) => (
               <>
-                <Grid item xs={4}>{field}</Grid>
+                <Grid item xs={4}>{f.label}</Grid>
                 <Grid item xs={6}>
-                  <TextField fullWidth size="small" name={field} onChange={handleChange} />
+                  <TextField fullWidth size="small" name={f.name} onChange={handleChange} />
                 </Grid>
               </>
             ))}
@@ -256,77 +269,149 @@ export default function TestEntry() {
         <Card sx={{ p: 2, mb: 2 }}>
           <Typography fontWeight="600">Blood Group (₹ {getPrice("Blood Group")})</Typography>
 
-          <Grid container spacing={2}>
-            <Grid item xs={4}>Blood Group</Grid>
-            <Grid item xs={6}><TextField name="bloodGroup" onChange={handleChange} /></Grid>
-
-            <Grid item xs={4}>Rh Type</Grid>
-            <Grid item xs={6}><TextField name="rhType" onChange={handleChange} /></Grid>
+          <Grid container spacing={2} mt={2}>
+          <Grid item xs={4}>Blood Group</Grid>
+          <Grid item xs={6}>
+            <TextField fullWidth size="small" name="bloodGroup" onChange={handleChange} />
           </Grid>
+
+          <Grid item xs={4}>Rh Type</Grid>
+          <Grid item xs={6}>
+            <TextField fullWidth size="small" name="rhType" onChange={handleChange} />
+          </Grid>
+        </Grid>
         </Card>
       )}
 
       {tests.crp && (
         <Card sx={{ p: 2, mb: 2 }}>
           <Typography>CRP (₹ {getPrice("CRP")})</Typography>
-          <TextField fullWidth name="crpQuant" onChange={handleChange} />
+          <Grid container spacing={2} mt={2}>
+            <Grid item xs={4}>CRP Quantitative</Grid>
+            <Grid item xs={6}>
+              <TextField fullWidth size="small" name="crpQuant" onChange={handleChange} />
+            </Grid>
+          </Grid>
         </Card>
       )}
 
       {tests.lipid && (
         <Card sx={{ p: 2, mb: 2 }}>
           <Typography>Lipid Profile (₹ {getPrice("Lipid Profile")})</Typography>
-
-          {["cholesterol","triglycerides","hdl","ldl","vldl","ratio"].map(f => (
-            <TextField key={f} fullWidth name={f} label={f} onChange={handleChange} sx={{ mb: 1 }} />
+          <Grid container spacing={2} mt={2}>
+          {[
+            { label: "Cholesterol", name: "cholesterol" },
+            { label: "Triglycerides", name: "triglycerides" },
+            { label: "HDL", name: "hdl" },
+            { label: "LDL", name: "ldl" },
+            { label: "VLDL", name: "vldl" },
+            { label: "HDL/LDL Ratio", name: "ratio" }
+          ].map((f) => (
+            <>
+              <Grid item xs={4}>{f.label}</Grid>
+              <Grid item xs={6}>
+                <TextField fullWidth size="small" name={f.name} onChange={handleChange} />
+              </Grid>
+            </>
           ))}
+        </Grid>
         </Card>
       )}
 
       {tests.hbsag && (
         <Card sx={{ p: 2, mb: 2 }}>
           <Typography>HBsAg (₹ {getPrice("HBsAg")})</Typography>
-          <TextField fullWidth name="hbsag" onChange={handleChange} />
+          <Grid container spacing={2} mt={2}>
+          <Grid item xs={4}>HBsAg Result</Grid>
+          <Grid item xs={6}>
+            <TextField fullWidth size="small" name="hbsag" onChange={handleChange} />
+          </Grid>
+        </Grid>
         </Card>
       )}
 
       {tests.hiv && (
         <Card sx={{ p: 2, mb: 2 }}>
           <Typography>HIV (₹ {getPrice("HIV")})</Typography>
+          <Grid container spacing={2} mt={2}>
+          <Grid item xs={4}>HIV I</Grid>
+          <Grid item xs={6}>
+            <TextField fullWidth size="small" name="hiv1" onChange={handleChange} />
+          </Grid>
 
-          <TextField fullWidth name="hiv1" label="HIV I" onChange={handleChange} />
-          <TextField fullWidth name="hiv2" label="HIV II" onChange={handleChange} />
+          <Grid item xs={4}>HIV II</Grid>
+          <Grid item xs={6}>
+            <TextField fullWidth size="small" name="hiv2" onChange={handleChange} />
+          </Grid>
+        </Grid>
         </Card>
       )}
 
       {tests.kft && (
         <Card sx={{ p: 2, mb: 2 }}>
           <Typography>KFT (₹ {getPrice("KFT")})</Typography>
-
-          {["urea","creatinine","uricAcid","calcium"].map(f => (
-            <TextField key={f} fullWidth name={f} label={f} onChange={handleChange} />
-          ))}
+          <Grid container spacing={2} mt={2}>
+            {[
+              { label: "Urea", name: "urea" },
+              { label: "Creatinine", name: "creatinine" },
+              { label: "Uric Acid", name: "uricAcid" },
+              { label: "Calcium", name: "calcium" }
+            ].map((f) => (
+              <>
+                <Grid item xs={4}>{f.label}</Grid>
+                <Grid item xs={6}>
+                  <TextField fullWidth size="small" name={f.name} onChange={handleChange} />
+                </Grid>
+              </>
+            ))}
+          </Grid>
         </Card>
       )}
 
       {tests.lft && (
         <Card sx={{ p: 2, mb: 2 }}>
           <Typography>LFT (₹ {getPrice("LFT")})</Typography>
-
-          {["bilirubinDirect","bilirubinIndirect","bilirubinTotal","protein","albumin","globulin","sgot","sgpt","alp"].map(f => (
-            <TextField key={f} fullWidth name={f} label={f} onChange={handleChange} />
+          <Grid container spacing={2} mt={2}>
+          {[
+            { label: "Bilirubin Direct", name: "bilirubinDirect" },
+            { label: "Bilirubin Indirect", name: "bilirubinIndirect" },
+            { label: "Total Bilirubin", name: "bilirubinTotal" },
+            { label: "Protein", name: "protein" },
+            { label: "Albumin", name: "albumin" },
+            { label: "Globulin", name: "globulin" },
+            { label: "SGOT", name: "sgot" },
+            { label: "SGPT", name: "sgpt" },
+            { label: "ALP", name: "alp" }
+          ].map((f) => (
+            <>
+              <Grid item xs={4}>{f.label}</Grid>
+              <Grid item xs={6}>
+                <TextField fullWidth size="small" name={f.name} onChange={handleChange} />
+              </Grid>
+            </>
           ))}
+        </Grid>
         </Card>
       )}
 
       {tests.widal && (
         <Card sx={{ p: 2, mb: 2 }}>
           <Typography>Widal (₹ {getPrice("Widal")})</Typography>
-
-          <TextField name="to" label="TO" onChange={handleChange} />
-          <TextField name="th" label="TH" onChange={handleChange} />
-          <TextField name="ah" label="AH" onChange={handleChange} />
-          <TextField name="bh" label="BH" onChange={handleChange} />
+          <Grid container spacing={2} mt={2}>
+          {[
+            { label: "TO", name: "to" },
+            { label: "TH", name: "th" },
+            { label: "AH", name: "ah" },
+            { label: "BH", name: "bh" }
+          ].map((f) => (
+            <>
+              <Grid item xs={4}>{f.label}</Grid>
+              <Grid item xs={6}>
+                <TextField fullWidth size="small" name={f.name} onChange={handleChange} />
+              </Grid>
+            </>
+          ))}
+        </Grid>
         </Card>
       )}
 
@@ -334,9 +419,28 @@ export default function TestEntry() {
       <Card sx={{ p: 2, mb: 2 }}>
         <Typography>Urine (₹ {getPrice("Urine")})</Typography>
 
-        {["appearance","colour","ph","gravity","sugar","protein","rbc","wbc","cells","cast","crystals"].map(f => (
-          <TextField key={f} fullWidth name={f} label={f} onChange={handleChange} />
+        <Grid container spacing={2} mt={2}>
+        {[
+          { label: "Appearance", name: "appearance" },
+          { label: "Colour", name: "colour" },
+          { label: "pH", name: "ph" },
+          { label: "Specific Gravity", name: "gravity" },
+          { label: "Sugar", name: "sugar" },
+          { label: "Protein", name: "protein" },
+          { label: "RBC", name: "rbc" },
+          { label: "WBC", name: "wbc" },
+          { label: "Cells", name: "cells" },
+          { label: "Cast", name: "cast" },
+          { label: "Crystals", name: "crystals" }
+        ].map((f) => (
+          <>
+            <Grid item xs={4}>{f.label}</Grid>
+            <Grid item xs={6}>
+              <TextField fullWidth size="small" name={f.name} onChange={handleChange} />
+            </Grid>
+          </>
         ))}
+      </Grid>
       </Card>
     )}
 
