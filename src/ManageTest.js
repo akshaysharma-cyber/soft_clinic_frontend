@@ -76,20 +76,25 @@ export default function ManageTest() {
       <Card sx={{ p: 3, mb: 3 }}>
         <Grid container spacing={2}>
 
+          {/* CATEGORY */}
           <Grid item xs={4}>
             <TextField
               select
               fullWidth
-              label="User Category"
+              label="Category"
               name="category"
               value={form.category}
               onChange={handleChange}
             >
+              <MenuItem value="Hematology">Hematology</MenuItem>
+              <MenuItem value="Serology">Serology</MenuItem>
+              <MenuItem value="Biochemistry">Biochemistry</MenuItem>
+              <MenuItem value="Urine">Urine</MenuItem>
               <MenuItem value="General">General</MenuItem>
-              <MenuItem value="VIP">VIP</MenuItem>
             </TextField>
           </Grid>
 
+          {/* TEST NAME */}
           <Grid item xs={4}>
             <TextField
               select
@@ -102,9 +107,20 @@ export default function ManageTest() {
               <MenuItem value="CBC">CBC</MenuItem>
               <MenuItem value="Malaria">Malaria</MenuItem>
               <MenuItem value="Dengue">Dengue</MenuItem>
+              <MenuItem value="Blood Sugar">Blood Sugar</MenuItem>
+              <MenuItem value="Blood Group">Blood Group</MenuItem>
+              <MenuItem value="CRP">CRP</MenuItem>
+              <MenuItem value="Lipid Profile">Lipid Profile</MenuItem>
+              <MenuItem value="HBsAg">HBsAg</MenuItem>
+              <MenuItem value="HIV">HIV</MenuItem>
+              <MenuItem value="KFT">KFT</MenuItem>
+              <MenuItem value="LFT">LFT</MenuItem>
+              <MenuItem value="Widal">Widal</MenuItem>
+              <MenuItem value="Urine">Urine</MenuItem>
             </TextField>
           </Grid>
 
+          {/* PRICE */}
           <Grid item xs={4}>
             <TextField
               fullWidth

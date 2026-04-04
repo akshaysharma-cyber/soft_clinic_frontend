@@ -27,7 +27,17 @@ export default function TestEntry() {
   const [tests, setTests] = useState({
     cbc: false,
     malaria: false,
-    dengue: false
+    dengue: false,
+    bloodSugar: false,
+    bloodGroup: false,
+    crp: false,
+    lipid: false,
+    hbsag: false,
+    hiv: false,
+    kft: false,
+    lft: false,
+    widal: false,
+    urine: false
   });
 
   const [expanded, setExpanded] = useState({
@@ -55,10 +65,20 @@ export default function TestEntry() {
     return found ? Number(found.price) : 0;
   };
 
-  const totalAmount =
+    const totalAmount =
     (tests.cbc ? getPrice("CBC") : 0) +
     (tests.malaria ? getPrice("Malaria") : 0) +
-    (tests.dengue ? getPrice("Dengue") : 0);
+    (tests.dengue ? getPrice("Dengue") : 0) +
+    (tests.bloodSugar ? getPrice("Blood Sugar") : 0) +
+    (tests.bloodGroup ? getPrice("Blood Group") : 0) +
+    (tests.crp ? getPrice("CRP") : 0) +
+    (tests.lipid ? getPrice("Lipid Profile") : 0) +
+    (tests.hbsag ? getPrice("HBsAg") : 0) +
+    (tests.hiv ? getPrice("HIV") : 0) +
+    (tests.kft ? getPrice("KFT") : 0) +
+    (tests.lft ? getPrice("LFT") : 0) +
+    (tests.widal ? getPrice("Widal") : 0) +
+    (tests.urine ? getPrice("Urine") : 0);
 
   const handleCheck = (name) => {
     setTests({ ...tests, [name]: !tests[name] });
@@ -124,7 +144,17 @@ export default function TestEntry() {
         <FormControlLabel control={<Checkbox checked={tests.cbc} onChange={() => handleCheck("cbc")} />} label="CBC" />
         <FormControlLabel control={<Checkbox checked={tests.malaria} onChange={() => handleCheck("malaria")} />} label="Malaria" />
         <FormControlLabel control={<Checkbox checked={tests.dengue} onChange={() => handleCheck("dengue")} />} label="Dengue" />
-      </Box>
+        <FormControlLabel control={<Checkbox checked={tests.bloodSugar} onChange={() => handleCheck("bloodSugar")} />} label="Blood Sugar" />
+        <FormControlLabel control={<Checkbox checked={tests.bloodGroup} onChange={() => handleCheck("bloodGroup")} />} label="Blood Group" />
+        <FormControlLabel control={<Checkbox checked={tests.crp} onChange={() => handleCheck("crp")} />} label="CRP" />
+        <FormControlLabel control={<Checkbox checked={tests.lipid} onChange={() => handleCheck("lipid")} />} label="Lipid Profile" />
+        <FormControlLabel control={<Checkbox checked={tests.hbsag} onChange={() => handleCheck("hbsag")} />} label="HBsAg" />
+        <FormControlLabel control={<Checkbox checked={tests.hiv} onChange={() => handleCheck("hiv")} />} label="HIV" />
+        <FormControlLabel control={<Checkbox checked={tests.kft} onChange={() => handleCheck("kft")} />} label="KFT" />
+        <FormControlLabel control={<Checkbox checked={tests.lft} onChange={() => handleCheck("lft")} />} label="LFT" />
+        <FormControlLabel control={<Checkbox checked={tests.widal} onChange={() => handleCheck("widal")} />} label="Widal / Malaria Combo" />
+        <FormControlLabel control={<Checkbox checked={tests.urine} onChange={() => handleCheck("urine")} />} label="Urine Test" />
+        </Box>
 
       {/* CBC */}
       {tests.cbc && (
@@ -140,6 +170,21 @@ export default function TestEntry() {
 
             <Grid item xs={4}>WBC Count</Grid>
             <Grid item xs={6}><TextField fullWidth size="small" name="wbc" onChange={handleChange} /></Grid>
+
+            <Grid item xs={4}>Platelets</Grid>
+            <Grid item xs={6}><TextField name="platelets" onChange={handleChange} /></Grid>
+
+            <Grid item xs={4}>Hematocrit</Grid>
+            <Grid item xs={6}><TextField name="hematocrit" onChange={handleChange} /></Grid>
+
+            <Grid item xs={4}>MCV</Grid>
+            <Grid item xs={6}><TextField name="mcv" onChange={handleChange} /></Grid>
+
+            <Grid item xs={4}>MCH</Grid>
+            <Grid item xs={6}><TextField name="mch" onChange={handleChange} /></Grid>
+
+            <Grid item xs={4}>MCHC</Grid>
+            <Grid item xs={6}><TextField name="mchc" onChange={handleChange} /></Grid>
           </Grid>
         </Card>
       )}
@@ -185,6 +230,115 @@ export default function TestEntry() {
           </Grid>
         </Card>
       )}
+
+      {tests.bloodSugar && (
+        <Card sx={{ p: 2, mb: 2 }}>
+          <Typography fontWeight="600">Blood Sugar (₹ {getPrice("Blood Sugar")})</Typography>
+
+          <Grid container spacing={2} mt={2}>
+            {[
+              "bsf","bspp","esr","sgot","sgpt","urea","creatinine",
+              "uricAcid","calcium","crpQual","crpQuant","raFactor",
+              "cholesterol","t3","t4","tsh"
+            ].map((field) => (
+              <>
+                <Grid item xs={4}>{field}</Grid>
+                <Grid item xs={6}>
+                  <TextField fullWidth size="small" name={field} onChange={handleChange} />
+                </Grid>
+              </>
+            ))}
+          </Grid>
+        </Card>
+      )}
+
+        {tests.bloodGroup && (
+        <Card sx={{ p: 2, mb: 2 }}>
+          <Typography fontWeight="600">Blood Group (₹ {getPrice("Blood Group")})</Typography>
+
+          <Grid container spacing={2}>
+            <Grid item xs={4}>Blood Group</Grid>
+            <Grid item xs={6}><TextField name="bloodGroup" onChange={handleChange} /></Grid>
+
+            <Grid item xs={4}>Rh Type</Grid>
+            <Grid item xs={6}><TextField name="rhType" onChange={handleChange} /></Grid>
+          </Grid>
+        </Card>
+      )}
+
+      {tests.crp && (
+        <Card sx={{ p: 2, mb: 2 }}>
+          <Typography>CRP (₹ {getPrice("CRP")})</Typography>
+          <TextField fullWidth name="crpQuant" onChange={handleChange} />
+        </Card>
+      )}
+
+      {tests.lipid && (
+        <Card sx={{ p: 2, mb: 2 }}>
+          <Typography>Lipid Profile (₹ {getPrice("Lipid Profile")})</Typography>
+
+          {["cholesterol","triglycerides","hdl","ldl","vldl","ratio"].map(f => (
+            <TextField key={f} fullWidth name={f} label={f} onChange={handleChange} sx={{ mb: 1 }} />
+          ))}
+        </Card>
+      )}
+
+      {tests.hbsag && (
+        <Card sx={{ p: 2, mb: 2 }}>
+          <Typography>HBsAg (₹ {getPrice("HBsAg")})</Typography>
+          <TextField fullWidth name="hbsag" onChange={handleChange} />
+        </Card>
+      )}
+
+      {tests.hiv && (
+        <Card sx={{ p: 2, mb: 2 }}>
+          <Typography>HIV (₹ {getPrice("HIV")})</Typography>
+
+          <TextField fullWidth name="hiv1" label="HIV I" onChange={handleChange} />
+          <TextField fullWidth name="hiv2" label="HIV II" onChange={handleChange} />
+        </Card>
+      )}
+
+      {tests.kft && (
+        <Card sx={{ p: 2, mb: 2 }}>
+          <Typography>KFT (₹ {getPrice("KFT")})</Typography>
+
+          {["urea","creatinine","uricAcid","calcium"].map(f => (
+            <TextField key={f} fullWidth name={f} label={f} onChange={handleChange} />
+          ))}
+        </Card>
+      )}
+
+      {tests.lft && (
+        <Card sx={{ p: 2, mb: 2 }}>
+          <Typography>LFT (₹ {getPrice("LFT")})</Typography>
+
+          {["bilirubinDirect","bilirubinIndirect","bilirubinTotal","protein","albumin","globulin","sgot","sgpt","alp"].map(f => (
+            <TextField key={f} fullWidth name={f} label={f} onChange={handleChange} />
+          ))}
+        </Card>
+      )}
+
+      {tests.widal && (
+        <Card sx={{ p: 2, mb: 2 }}>
+          <Typography>Widal (₹ {getPrice("Widal")})</Typography>
+
+          <TextField name="to" label="TO" onChange={handleChange} />
+          <TextField name="th" label="TH" onChange={handleChange} />
+          <TextField name="ah" label="AH" onChange={handleChange} />
+          <TextField name="bh" label="BH" onChange={handleChange} />
+        </Card>
+      )}
+
+      {tests.urine && (
+      <Card sx={{ p: 2, mb: 2 }}>
+        <Typography>Urine (₹ {getPrice("Urine")})</Typography>
+
+        {["appearance","colour","ph","gravity","sugar","protein","rbc","wbc","cells","cast","crystals"].map(f => (
+          <TextField key={f} fullWidth name={f} label={f} onChange={handleChange} />
+        ))}
+      </Card>
+    )}
 
       {/* TOTAL */}
       <Card sx={{ p: 2, mt: 3, backgroundColor: "#e8f5e9" }}>
