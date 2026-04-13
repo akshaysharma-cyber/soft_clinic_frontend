@@ -8,10 +8,41 @@ import {
 } from "@mui/material";
 import LockIcon from "@mui/icons-material/Lock";
 import { useNavigate } from "react-router-dom";
+import { useState } from "react";
 import logo from "./assets/logo.png";
 
 export default function Signup() {
   const navigate = useNavigate();
+
+  const [mobile, setMobile] = useState("");
+  const [password, setPassword] = useState("");
+
+  const handleSignup = async () => {
+    try {
+      const response = await fetch("http://localhost:8089/auth/signup", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          mobileNumber: mobile,
+          password: password,
+        }),
+      });
+
+      const data = await response.json();
+
+      if (response.ok) {
+        alert("Signup successful!");
+        navigate("/signin");
+      } else {
+        alert(data.message || "Signup failed");
+      }
+    } catch (error) {
+      console.error(error);
+      alert("Server error");
+    }
+  };
 
   return (
     <Box
@@ -42,6 +73,8 @@ export default function Signup() {
           fullWidth
           margin="normal"
           placeholder="+91 Enter mobile number"
+          value={mobile}
+          onChange={(e) => setMobile(e.target.value)}
           InputProps={{
             startAdornment: (
               <InputAdornment position="start">🇮🇳</InputAdornment>
@@ -54,6 +87,8 @@ export default function Signup() {
           type="password"
           margin="normal"
           placeholder="Create password"
+          value={password}
+          onChange={(e) => setPassword(e.target.value)}
           InputProps={{
             startAdornment: (
               <InputAdornment position="start">
@@ -65,7 +100,7 @@ export default function Signup() {
 
         <Button
           fullWidth
-          onClick={() => navigate("/signin")}
+          onClick={handleSignup}
           sx={{
             mt: 2,
             py: 1.5,
